@@ -25,6 +25,7 @@ namespace APlaceToPrrLong.Controllers
         {
             try
             {
+                //Obtener recursos
                 var data = await context.Users.ToListAsync();
                 var result = mapper.Map<List<UserDTO>>(data);
                 return Ok(new GenericListResponse<UserDTO>
