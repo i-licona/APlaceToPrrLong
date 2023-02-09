@@ -22,36 +22,6 @@ namespace APlaceToPrrLong.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("APlaceToPrrLong.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CommentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PetPostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PetPostId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comment");
-                });
-
             modelBuilder.Entity("APlaceToPrrLong.Models.PetPost", b =>
                 {
                     b.Property<int>("Id")
@@ -341,25 +311,6 @@ namespace APlaceToPrrLong.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("APlaceToPrrLong.Models.Comment", b =>
-                {
-                    b.HasOne("APlaceToPrrLong.Models.PetPost", "PetPost")
-                        .WithMany("Comments")
-                        .HasForeignKey("PetPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("APlaceToPrrLong.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PetPost");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("APlaceToPrrLong.Models.PetPost", b =>
                 {
                     b.HasOne("APlaceToPrrLong.Models.User", "User")
@@ -422,15 +373,8 @@ namespace APlaceToPrrLong.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("APlaceToPrrLong.Models.PetPost", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
             modelBuilder.Entity("APlaceToPrrLong.Models.User", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("PetPost");
                 });
 #pragma warning restore 612, 618

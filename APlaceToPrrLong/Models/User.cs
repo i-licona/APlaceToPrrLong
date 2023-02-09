@@ -27,6 +27,5 @@ namespace APlaceToPrrLong.Models
         public string Picture { get; set; }
         public List<PetPost> PetPost { get; set; }
         public List<Comment> Comments { get; set; }
-        
     }
 }
