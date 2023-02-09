@@ -62,7 +62,7 @@ public class PetPostController : Controller
         var data = mapper.Map<PetPost>(petDTO);
         try
         {
-            Console.WriteLine(context.Add(data).ToString());
+            context.PetPosts.Add(data);
             await context.SaveChangesAsync();
             var result = mapper.Map<PetDTO>(context);
             return Ok(new GenericResponse<PetDTO>
