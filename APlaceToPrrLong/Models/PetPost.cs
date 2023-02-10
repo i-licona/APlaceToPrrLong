@@ -9,6 +9,7 @@
         public DateTime PostDate { get; set; }
         public DateTime AdoptionDate { get; set; }
         public string Status { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
         public List<Comment> Comments { get; set; }
     }
