@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Principal;
 
 namespace APlaceToPrrLong.Controllers
 {
@@ -28,23 +29,14 @@ namespace APlaceToPrrLong.Controllers
                 //Obtener recursos
                 var data = await context.Users.ToListAsync();
                 var result = mapper.Map<List<UserDTO>>(data);
-                return Ok(new GenericListResponse<UserDTO>
-                {
-                    Data = result,
-                    Message = "Recursos obtenidos correctamente",
-                    Status = 200,
-                });
+                GenericListResponse<UserDTO> response = new GenericListResponse<UserDTO>(result, "Recursos obtenidos correctamente", 200);
+                return Ok(response);
             }
             catch (Exception e)
             {
 
-                return BadRequest(new GenericListResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "Ha ocurrido un error",
-                    Status = 400,
-                    Error = e.Message
-                });
+                GenericListResponse<UserDTO> response = new GenericListResponse<UserDTO>(null, "Ha ocurrido un error", 400, e.Message);
+                return BadRequest(response);
             }
         }
 
@@ -55,31 +47,20 @@ namespace APlaceToPrrLong.Controllers
             //validar si existe el usuario
             if (data == null) 
             { 
-                NotFound(new GenericResponse<UserDTO>{
-                    Data = null,
-                    Message = "No se encontro el recurso solicitado",
-                    Status = 404,
-                });
+
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "No se encontro el recurso solicitado", 404);
+                NotFound(response);
             }
             try
             {
                 var result = mapper.Map<UserDTO>(data);
-                return Ok(new GenericResponse<UserDTO>
-                {
-                    Data = result,
-                    Message = "Recursos obtenidos correctamente",
-                    Status = 200,
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(result, "Recursos obtenidos correctamente", 200);
+                return Ok(response);
             }
             catch (Exception e)
             {
-                return BadRequest(new GenericResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "Ha ocurrido un error",
-                    Status = 400,
-                    Error = e.Message
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "Ha ocurrido un error", 400, e.Message);
+                return BadRequest(response);
             }
         }
 
@@ -92,22 +73,14 @@ namespace APlaceToPrrLong.Controllers
                 context.Users.Add(data);
                 await context.SaveChangesAsync();
                 var result = mapper.Map<UserDTO>(data);
-                return Ok( new GenericResponse<UserDTO>
-                {
-                    Data = result,
-                    Message = "Recursos creados correctamente",
-                    Status = 201,
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(result, "Recursos creados correctamente", 201);
+                return Ok(response);
             }
             catch (Exception e)
             {
-                return BadRequest(new GenericResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "Ha ocurrido un error",
-                    Status = 400,
-                    Error = e.Message
-                });
+
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "Ha ocurrido un error", 400, e.Message);
+                return BadRequest(response);
             }
         }
 
@@ -118,34 +91,21 @@ namespace APlaceToPrrLong.Controllers
             //validar si existe el usuario
             if (userDb == null)
             {
-                NotFound(new GenericResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "No se encontro el recurso solicitado",
-                    Status = 404,
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "No se encontro el recurso solicitado", 404);
+                NotFound(response);
             }
             try
             {
                 //Remplazar los datos enviados por el usuario
                 userDb = mapper.Map(userDTO, userDb);
                 await context.SaveChangesAsync();
-                return Ok(new GenericResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "Recursos actualizados correctamente",
-                    Status = 200,
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "Recursos actualizados correctamente", 200);
+                return Ok(response);
             }
             catch (Exception e)
             {
-                return BadRequest(new GenericResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "Ha ocurrido un error",
-                    Status = 400,
-                    Error = e.Message
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "Ha ocurrido un error", 400, e.Message);
+                return BadRequest(response);
             }
         }
 
@@ -156,34 +116,21 @@ namespace APlaceToPrrLong.Controllers
             var existRegister = await context.Users.AnyAsync( x=> x.Id == id );
             if (!existRegister)
             {
-                NotFound(new GenericResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "No se encontro el recurso solicitado",
-                    Status = 404,
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "No se encontro el recurso solicitado", 404);
+                NotFound(response);
             }
             try
             {
                 //Eliminar registro
                 context.Remove(new User { Id = id });
                 await context.SaveChangesAsync();
-                return Ok(new GenericResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "Recursos actualizados correctamente",
-                    Status = 200,
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "Recursos eliminados correctamente", 200);
+                return Ok(response);
             }
             catch (Exception e)
             {
-                return BadRequest(new GenericResponse<UserDTO>
-                {
-                    Data = null,
-                    Message = "Ha ocurrido un error",
-                    Status = 400,
-                    Error = e.Message
-                });
+                GenericResponse<UserDTO> response = new GenericResponse<UserDTO>(null, "Ha ocurrido un error", 400, e.Message);
+                return BadRequest(response);
             }
         }
     }

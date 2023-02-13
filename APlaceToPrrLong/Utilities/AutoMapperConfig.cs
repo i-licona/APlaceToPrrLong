@@ -1,4 +1,5 @@
-﻿using APlaceToPrrLong.DTOs.User;
+﻿using APlaceToPrrLong.DTOs.Pet;
+using APlaceToPrrLong.DTOs.User;
 using APlaceToPrrLong.Models;
 using AutoMapper;
 
@@ -13,6 +14,10 @@ namespace APlaceToPrrLong.Utilities
             CreateMap<CreateUserDTO, User>();
             //Reverse Map, realiza la operación inversa
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<AddPetDTO, PetPost>();
+            CreateMap<PetPost, PetDTO>().ReverseMap();
+
+            
         }
     }
 }

@@ -26,8 +26,8 @@ public class PetPostController : Controller
     {
         try
         {
-            var data = await context.PetPosts.ToListAsync();
-            var result = mapper.Map<List<PetDTO>>(data);
+            var data = await context.PetPosts.Include(x => x.User).ToListAsync();
+               var result = mapper.Map<List<PetDTO>>(data);
             return Ok(new GenericListResponse<PetDTO>
                 (result, "Recursos Obtenidos de forma Exitosa", 200));
         }
@@ -64,7 +64,7 @@ public class PetPostController : Controller
         {
             context.PetPosts.Add(data);
             await context.SaveChangesAsync();
-            var result = mapper.Map<PetDTO>(context);
+            var result = mapper.Map<PetDTO>(data);
             return Ok(new GenericResponse<PetDTO>
                 (result, "Datos recolectados correctamente", 201));
         }
