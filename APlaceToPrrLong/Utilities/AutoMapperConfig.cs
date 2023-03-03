@@ -1,6 +1,7 @@
 ﻿using APlaceToPrrLong.DTOs.Login;
 using APlaceToPrrLong.DTOs.Pet;
 using APlaceToPrrLong.DTOs.User;
+using APlaceToPrrLong.DTOs.TypePet;
 using APlaceToPrrLong.Models;
 using AutoMapper;
 
@@ -19,8 +20,8 @@ namespace APlaceToPrrLong.Utilities
             CreateMap<PetPost, PetDTO>().ReverseMap();
             //Login
             CreateMap<User, UserLoginDTO>().ReverseMap();
-
-
+            //Type Pet
+            CreateMap<TypePet, TypePetDTO>().ReverseMap();
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APlaceToPrrLong.Controllers;
 
-[Route("api/pet")]
+[Route("api/petPost")]
 [ApiController]
 public class PetPostController : Controller
 {
